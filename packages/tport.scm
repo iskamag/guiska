@@ -1,4 +1,5 @@
 (define-module (guiska packages tport)
+    #:use-module (ice-9 match)
     #:use-module (guix packages)
     #:use-module (guix download)
     #:use-module (guix git-download)
