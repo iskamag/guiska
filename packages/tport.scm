@@ -6,9 +6,12 @@
     #:use-module (guix build-system cmake)
     #:use-module ((guix licenses) #:prefix license:)
     #:use-module (gnu packages compression)
+    #:use-module (gnu packages pkg-config)
+    #:use-module (gnu packages)
     ;#:use-module (gnu packages assembly)
     #:use-module (gnu packages mp3)
     #:use-module (gnu packages audio)
+    #:use-module (gnu packages pulseaudio)
     )
 
 (define-public zmusic
@@ -20,12 +23,12 @@
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/ZDoom/ZMusic")
-             (commit (string-append "g" version))))
+             (commit version)))
        (file-name (git-file-name name version))
        (sha256
         (base32 "1izxn1k4rc0yxzn21viaq818c30fgyj963dzjbm8kjc460877aik"))
-       (patches (search-patches "zmusic-search-in-installed-share.patch"
-                                "zmusic-find-system-libgme.patch"))
+       ;(patches (search-patches "zmusic-search-in-installed-share.patch"
+                                ;"zmusic-find-system-libgme.patch"))
        (modules '((guix build utils)))
        (snippet
         '(begin
@@ -79,8 +82,7 @@
                #t))))))
     (build-system cmake-build-system)
 
-    ;;TODO not every input is yet present
-    ;;namely OPL and ADL
+    ;;TODO ADL and OPl are not present
     ;;I think it'll use the ones in thirdparty/ idk
     (inputs `(
               ;("bzip2" ,bzip2) ;seems to be unused
@@ -109,3 +111,5 @@ Strife, Chex Quest, and fan-created games like Harmony, Hacx and Freedoom.")
                    (license:non-copyleft ; modified dumb
                     "file://dumb/licence.txt"
                     "Dumb license, explicitly GPL compatible.")))))
+
+zmusic
