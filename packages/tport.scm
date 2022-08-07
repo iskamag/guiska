@@ -26,7 +26,7 @@
              (commit version)))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "1izxn1k4rc0yxzn21viaq818c30fgyj963dzjbm8kjc460877aik"))
+        (base32 "0vpr79gpdbhslg5qxyd1qxlv5akgli26skm1vb94yd8v69ymdcy2"))
        ;(patches (search-patches "zmusic-search-in-installed-share.patch"
                                 ;"zmusic-find-system-libgme.patch"))
        (modules '((guix build utils)))
@@ -57,6 +57,7 @@
           "-DDYN_FLUIDSYNTH=OFF"
           "-DDYN_MPG123=OFF"
           "-DDYN_SNDFILE=OFF"))
+
        #:phases
        (modify-phases %standard-phases
          (add-before 'configure 'fix-referenced-paths
@@ -70,16 +71,17 @@
                  (("COMMAND /bin/sh")
                   (string-append "COMMAND " (which "sh"))))
 
-               (substitute*
-                   "libraries/zmusic/mididevices/music_fluidsynth_mididevice.cpp"
-                 (("/usr/share/sounds/sf2/FluidR3_GM.sf2")
-                  (string-append fluid-3 "/share/soundfonts/FluidR3Mono_GM.sf3")))
-
-               (substitute*
-                   "libraries/zmusic/mididevices/music_timiditypp_mididevice.cpp"
-                 (("exename = \"timidity\"")
-                  (string-append "exename = \"" timidity++ "/bin/timidity\"")))
-               #t))))))
+               ;(substitute*
+                   ;"libraries/zmusic/mididevices/music_fluidsynth_mididevice.cpp"
+                 ;(("/usr/share/sounds/sf2/FluidR3_GM.sf2")
+                  ;(string-append fluid-3 "/share/soundfonts/FluidR3Mono_GM.sf3")))
+;
+               ;(substitute*
+                   ;"libraries/zmusic/mididevices/music_timiditypp_mididevice.cpp"
+                 ;(("exename = \"timidity\"")
+                  ;(string-append "exename = \"" timidity++ "/bin/timidity\"")))
+               #t))))
+               ))
     (build-system cmake-build-system)
 
     ;;TODO ADL and OPl are not present
