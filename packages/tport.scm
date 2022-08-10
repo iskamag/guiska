@@ -34,9 +34,7 @@
        (snippet
         ;; Remove some bundled libraries.  XXX There are more, but removing
         ;; them would require, at least, patching the build system.
-        #~(with-directory-excursion "thirdparty"
-            ;(delete-file-recursively "game-music-emu")
-            (delete-file-recursively "zlib")))))
+        #~(delete-file-recursively "thirdparty/zlib"))))
     (build-system cmake-build-system)
     (arguments
      (list #:tests? #f
@@ -58,7 +56,7 @@
            #:phases
            #~(modify-phases %standard-phases
                (add-before 'configure 'fix-referenced-paths
-                 (lambda* (#:key inputs outputs #:allow-other-keys)
+                 (lambda* (#:key inputs #:allow-other-keys)
                    (substitute* "CMakeLists.txt"
                      (("/bin/sh")
                       (search-input-file inputs "bin/sh")))
