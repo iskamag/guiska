@@ -64,12 +64,15 @@
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let ((fluid-3 (assoc-ref inputs "fluid-3"))
                    (timidity++ (assoc-ref inputs "timidity++"))
-                   (out (assoc-ref outputs "out")))
+                   (out (assoc-ref outputs "out"))
 
-               (substitute*
-                   "src/CMakeLists.txt"
-                 (("COMMAND /bin/sh")
-                  (string-append "COMMAND " (which "sh"))))
+                    ;(bin (string-append out "/bin"))
+                    ;(share (string-append out "/share"))
+                    )
+               ;(substitute*
+                   ;"src/CMakeLists.txt"
+                 ;(("COMMAND /bin/sh")
+                  ;(string-append "COMMAND " (which "sh"))))
 
                ;(substitute*
                    ;"libraries/zmusic/mididevices/music_fluidsynth_mididevice.cpp"
@@ -112,6 +115,7 @@ Strife, Chex Quest, and fan-created games like Harmony, Hacx and Freedoom.")
                    license:expat         ; gdtoa
                    (license:non-copyleft ; modified dumb
                     "file://dumb/licence.txt"
-                    "Dumb license, explicitly GPL compatible.")))))
+                    "Dumb license, explicitly GPL compatible.")))
+    ))
 
 zmusic
