@@ -86,4 +86,3 @@ Strife, Chex Quest, and fan-created games like Harmony, Hacx and Freedoom.")
                    (license:non-copyleft ; modified dumb
                     "file://dumb/licence.txt"
                     "Dumb license, explicitly GPL compatible.")))))
-zmusic
