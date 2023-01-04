@@ -104,3 +104,15 @@
                              (string-append #$output "/lib/" appname)
                              #$output)
                             ":")))))))))))
+
+(define bitwarden-version "2022.12.0")
+(define-public bitwarden
+  (make-electron-app "bitwarden" "Bitwarden"
+		     (string-append
+	 "https://github.com/bitwarden/clients/releases/download/desktop-v" bitwarden-version "/Bitwarden-" bitwarden-version "-amd64.deb") bitwarden-version "1qgszs607zr9d6yjl9xqpy2yjq2248mh38wz7ck796hqc7a0dr3m"))
+
+(define whalebird-version "4.7.3")
+(define-public whalebird
+  (make-electron-app "whalebird" "Whalebird"
+		     (string-append
+		      "https://github.com/h3poteto/whalebird-desktop/releases/download/" whalebird-version "/Whalebird-" whalebird-version "-linux-x64.deb") whalebird-version "08550dmr9kzj8mm7dvhrvfw2wa8hnqqjn3dmvcgnia9g43cv7rjn"))
