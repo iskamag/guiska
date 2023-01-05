@@ -49,7 +49,7 @@
       (arguments
        (list #:validate-runpath? #f ; TODO: fails on wrapped binary and included other files
              #:patchelf-plan
-             #~`(( ,(string-append "lib/" appname name)
+             #~`(( ,(string-append "lib/" #$appname "/" #$name)
                    ("alsa-lib" "at-spi2-atk" "at-spi2-core" "atk" "cairo" "cups"
                     "dbus" "expat" "fontconfig-minimal" "gcc" "gdk-pixbuf" "glib"
                     "gtk+" "libdrm" "libnotify" "libsecret" "libx11" "libxcb"
@@ -71,18 +71,18 @@
                      (delete-file "data.tar.xz")
                      (delete-file "debian-binary")
                      ;; Fix the .desktop file binary location.
-                     (substitute* '(,(string-append "share/applications/" name ".desktop")) 
-                       (((string-append "/opt/" appname))
-			(string-append #$output "/lib/" appname)))))
+                     (substitute* `(,(string-append "share/applications/" #$name ".desktop")) 
+                       (((string-append "/opt/" #$appname))
+			(string-append #$output "/lib/" #$appname)))))
 		 (add-after 'install 'symlink-binary-file-and-cleanup
                    (lambda _
                      (delete-file (string-append #$output "/environment-variables"))
                      (mkdir-p (string-append #$output "/bin"))
-                     (symlink (string-append #$output "/lib/" appname "/" name)
-                              (string-append #$output "/bin/" name ))))
+                     (symlink (string-append #$output "/lib/" #$appname "/" #$name)
+                              (string-append #$output "/bin/" #$name ))))
 		 (add-after 'install 'wrap-where-patchelf-does-not-work
                    (lambda _
-                     (wrap-program (string-append #$output "/lib/" appname "/" name)
+                     (wrap-program (string-append #$output "/lib/" #$appname "/" #$name)
                        `("FONTCONFIG_PATH" ":" prefix
 			 (,(string-join
                             (list
@@ -101,7 +101,7 @@
                              (string-append #$(this-package-input "libsecret") "/lib")
                              (string-append #$(this-package-input "sqlcipher") "/lib")
                              (string-append #$(this-package-input "libnotify") "/lib")
-                             (string-append #$output "/lib/" appname)
+                             (string-append #$output "/lib/" #$appname)
                              #$output)
                             ":")))))))))))
 
