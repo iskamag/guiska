@@ -13,7 +13,7 @@
     #:use-module (gnu packages mp3)
     #:use-module (gnu packages audio)
     #:use-module (gnu packages pulseaudio)
-    )
+    #:use-module (gnu packages xorg))
 
 (define-public zmusic
   (package
@@ -86,3 +86,23 @@ Strife, Chex Quest, and fan-created games like Harmony, Hacx and Freedoom.")
                    (license:non-copyleft ; modified dumb
                     "file://dumb/licence.txt"
                     "Dumb license, explicitly GPL compatible.")))))
+
+(define-public maiko
+  (package
+    (name "maiko")
+    (version "maiko-220929-f5b17b0e")
+    (source (origin
+	      (method url-fetch)
+	      (uri
+	       (string-append
+		"https://github.com/Interlisp/maiko/archive/refs/tags/" version ".tar.gz"))
+	      (sha256
+	       (base32 "1qg7phw4bcnm2ljc37qaq128wbiqwgfg87h8fh9c128gvgf0jrxl"))))
+    (build-system cmake-build-system)
+    (inputs
+     (list libx11))
+    (native-inputs (list pkg-config))
+    (synopsis "Maiko Interlisp virtual machine")
+    (description "yeah")
+    (home-page "https://interlisp.org")
+    (license license:expat)))
