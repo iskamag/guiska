@@ -256,7 +256,7 @@
             nspr
             nss
             pango
-            pipewire-0.3
+            pipewire
             sqlcipher
             zlib
 	    ffmpeg))
